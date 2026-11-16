@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!-- PROTOTYPE — throwaway. Answers: what should the daily digest email look like.
+     Double-click to open. Use the floating bar to switch variants. Not production code. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digest email prototype</title>
+</head>
+<body style="margin:0;padding:0;background:#f0f0f0;">
+
+<!-- dev-only switcher; stripped from real email -->
+<div style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;font:13px/1.6 system-ui;padding:8px 12px;z-index:9">
+  Variant:
+  <a style="color:#7fd" href="#v-a" onclick="show('a')">A — Compact inline</a> ·
+  <a style="color:#7fd" href="#v-b" onclick="show('b')">B — Sectioned classic</a> ·
+  <a style="color:#7fd" href="#v-c" onclick="show('c')">C — Scan (no summaries)</a>
+</div>
+
+<!-- ============ VARIANT A: compact inline ============ -->
+<div class="variant" id="v-a">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f0;padding:16px;font-family:Georgia,serif;">
+<tr><td align="center">
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #ddd;">
+  <tr><td style="padding:20px 24px 6px;border-bottom:3px solid #b02a2a;">
+    <div style="font-size:26px;font-weight:bold;">The Daily Digest</div>
+    <div style="font-size:13px;color:#666;">Tuesday, June 10 · sent 08:00 PT · 34 items from 12 feeds</div>
+  </td></tr>
+  <tr><td style="padding:12px 24px;">
+    <div style="font-size:15px;color:#b02a2a;font-weight:bold;letter-spacing:1px;border-bottom:1px solid #b02a2a;padding:8px 0 4px;">BREAKING <span style="color:#999;font-weight:normal">(2)</span></div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+        <a href="#" style="color:#111;text-decoration:underline;">Supreme Court rules on federal agency powers</a>
+        <span style="color:#888;"> — landmark decision reshaping regulatory authority. <i style="color:#b02a2a;font-style:normal;font-size:12px;">[USA]</i> <span style="color:#aaa;font-size:11px;">ProPublica</span></span>
+      </td></tr>
+      <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+        <a href="#" style="color:#111;text-decoration:underline;">Magnitude 6.8 quake strikes Hindu Kush region</a>
+        <span style="color:#888;"> — tremors felt across northern India. <i style="color:#b02a2a;font-style:normal;font-size:12px;">[INDIA]</i> <span style="color:#aaa;font-size:11px;">The Hindu</span></span>
+      </td></tr>
+    </table>
+
+    <div style="font-size:15px;color:#333;font-weight:bold;letter-spacing:1px;border-bottom:1px solid #999;padding:14px 0 4px;margin-top:8px;">GEOPOLITICS <span style="color:#999;font-weight:normal;">(5)</span></div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+        <a href="#" style="color:#111;text-decoration:underline;">EU summit ends without agreement on enlargement timeline</a>
+        <span style="color:#888;"> — Western Balkans accessions delayed again. <span style="color:#aaa;font-size:11px;">FEPS</span></span>
+      </td></tr>
+      <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+        <a href="#" style="color:#111;text-decoration:underline;">China signals new tariff exemptions on select agricultural imports</a>
+        <span style="color:#888;"> — soybean markets react. <span style="color:#aaa;font-size:11px;">Guardian</span></span>
+      </td></tr>
+      <tr><td style="padding:4px 0;font-size:12px;color:#999;">+3 more not shown</td></tr>
+    </table>
+
+    <div style="font-size:15px;color:#333;font-weight:bold;letter-spacing:1px;border-bottom:1px solid #999;padding:14px 0 4px;">FOOTBALL <span style="color:#999;font-weight:normal;">(4)</span></div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+        <a href="#" style="color:#111;text-decoration:underline;">Arsenal complete signing of Brazilian winger</a>
+        <span style="color:#888;"> — five-year deal worth £55m. <span style="color:#aaa;font-size:11px;">Guardian</span></span>
+      </td></tr>
+    </table>
+
+    <div style="font-size:15px;color:#333;font-weight:bold;letter-spacing:1px;border-bottom:1px solid #999;padding:14px 0 4px;">WORK — DISTRIBUTED SYSTEMS <span style="color:#999;font-weight:normal;">(3)</span></div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+        <a href="#" style="color:#111;text-decoration:underline;">Debugging distributed systems: the case for causal tracing</a>
+        <span style="color:#888;"> — why span-based tracing misses race conditions. <span style="color:#aaa;font-size:11px;">newsletter</span></span>
+      </td></tr>
+    </table>
+
+    <div style="font-size:15px;color:#888;font-weight:bold;letter-spacing:1px;border-bottom:1px solid #ccc;padding:14px 0 4px;">OTHER <span style="color:#999;font-weight:normal;">(2)</span></div>
+    <tr><td style="padding:7px 0;font-size:14px;border-bottom:1px solid #eee;">
+      <a href="#" style="color:#111;text-decoration:underline;">Portland city council approves new housing measure</a>
+      <span style="color:#888;"> — local story, model unsure of fit. <span style="color:#aaa;font-size:11px;">KATU</span></span>
+    </td></tr>
+
+    <div style="padding:16px 0 8px;font-size:11px;color:#999;border-top:1px solid #ddd;margin-top:16px;">
+      Sent because schedule = daily 08:00 PT · Skipped: Guardian Books (fetch failed), 1 item (classify failed)
+    </div>
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</div>
+
+<!-- ============ VARIANT B: sectioned classic ============ -->
+<div class="variant" id="v-b">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f0;padding:16px;font-family:Helvetica,Arial,sans-serif;">
+<tr><td align="center">
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;">
+  <tr><td style="padding:24px;background:#1a2a4a;">
+    <div style="font-size:24px;font-weight:bold;color:#ffffff;">📰 The Daily Digest</div>
+    <div style="font-size:13px;color:#a8b8d8;">Tuesday, June 10 · 08:00 PT</div>
+  </td></tr>
+
+  <tr><td style="padding:14px 24px;background:#b02a2a;">
+    <div style="font-size:14px;font-weight:bold;color:#ffffff;letter-spacing:1px;">⚡ BREAKING</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">Supreme Court rules on federal agency powers</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Landmark decision reshaping regulatory authority · <span style="color:#b02a2a;font-weight:bold;">USA</span> · ProPublica</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">Magnitude 6.8 quake strikes Hindu Kush region</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Tremors felt across northern India · <span style="color:#b02a2a;font-weight:bold;">INDIA</span> · The Hindu</div>
+  </td></tr>
+
+  <tr><td style="padding:14px 24px;background:#eef1f7;border-top:1px solid #ddd;">
+    <div style="font-size:13px;font-weight:bold;color:#1a2a4a;letter-spacing:1px;">GEOPOLITICS · 5 STORIES</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">EU summit ends without agreement on enlargement timeline</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Western Balkans accessions delayed again · FEPS</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">China signals new tariff exemptions on select agricultural imports</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Soybean markets react · Guardian</div>
+  </td></tr>
+  <tr><td style="padding:6px 24px;font-size:12px;color:#999;">+3 more not shown</td></tr>
+
+  <tr><td style="padding:14px 24px;background:#eef1f7;border-top:1px solid #ddd;">
+    <div style="font-size:13px;font-weight:bold;color:#1a2a4a;letter-spacing:1px;">FOOTBALL · 4 STORIES</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">Arsenal complete signing of Brazilian winger</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Five-year deal worth £55m · Guardian</div>
+  </td></tr>
+
+  <tr><td style="padding:14px 24px;background:#eef1f7;border-top:1px solid #ddd;">
+    <div style="font-size:13px;font-weight:bold;color:#1a2a4a;letter-spacing:1px;">WORK — DISTRIBUTED SYSTEMS · 3 STORIES</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">Debugging distributed systems: the case for causal tracing</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Why span-based tracing misses race conditions · newsletter</div>
+  </td></tr>
+
+  <tr><td style="padding:14px 24px;background:#f7f7f7;border-top:1px solid #ddd;">
+    <div style="font-size:13px;font-weight:bold;color:#888;letter-spacing:1px;">OTHER · 2 STORIES</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px;border-bottom:1px solid #eee;">
+    <div style="font-size:15px;"><a href="#" style="color:#1a2a4a;text-decoration:none;font-weight:bold;">Portland city council approves new housing measure</a></div>
+    <div style="font-size:13px;color:#666;padding-top:2px;">Local story, model unsure of fit · KATU</div>
+  </td></tr>
+
+  <tr><td style="padding:14px 24px;font-size:11px;color:#999;border-top:1px solid #ddd;">
+    Sent because schedule = daily 08:00 PT · Skipped: Guardian Books (fetch failed), 1 item (classify failed)
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</div>
+
+<!-- ============ VARIANT C: scan, no summaries ============ -->
+<div class="variant" id="v-c">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f0;padding:16px;font-family:Helvetica,Arial,sans-serif;">
+<tr><td align="center">
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #ddd;">
+  <tr><td style="padding:16px 24px;">
+    <div style="font-size:18px;font-weight:bold;">Daily Digest — Tue Jun 10</div>
+    <div style="font-size:11px;color:#999;">34 items · 12 feeds · 08:00 PT</div>
+  </td></tr>
+  <tr><td style="padding:0 24px 4px;">
+    <div style="font-size:11px;font-weight:bold;color:#b02a2a;letter-spacing:2px;">BREAKING</div>
+    <div style="font-size:14px;padding:6px 0;"><a href="#" style="color:#111;text-decoration:none;">▸ Supreme Court rules on federal agency powers</a> <span style="color:#aaa;font-size:11px;">USA · ProPublica</span></div>
+    <div style="font-size:14px;padding:6px 0;border-bottom:1px solid #eee;"><a href="#" style="color:#111;text-decoration:none;">▸ Magnitude 6.8 quake strikes Hindu Kush region</a> <span style="color:#aaa;font-size:11px;">INDIA · The Hindu</span></div>
+  </td></tr>
+  <tr><td style="padding:10px 24px 4px;">
+    <div style="font-size:11px;font-weight:bold;color:#333;letter-spacing:2px;">GEOPOLITICS (5)</div>
+    <div style="font-size:14px;padding:6px 0;"><a href="#" style="color:#111;text-decoration:none;">▸ EU summit ends without agreement on enlargement timeline</a> <span style="color:#aaa;font-size:11px;">FEPS</span></div>
+    <div style="font-size:14px;padding:6px 0;"><a href="#" style="color:#111;text-decoration:none;">▸ China signals new tariff exemptions on select agricultural imports</a> <span style="color:#aaa;font-size:11px;">Guardian</span></div>
+    <div style="font-size:11px;color:#999;padding:2px 0;">+3 more</div>
+  </td></tr>
+  <tr><td style="padding:10px 24px 4px;border-top:1px solid #eee;">
+    <div style="font-size:11px;font-weight:bold;color:#333;letter-spacing:2px;">FOOTBALL (4)</div>
+    <div style="font-size:14px;padding:6px 0;"><a href="#" style="color:#111;text-decoration:none;">▸ Arsenal complete signing of Brazilian winger</a> <span style="color:#aaa;font-size:11px;">Guardian</span></div>
+  </td></tr>
+  <tr><td style="padding:10px 24px 4px;border-top:1px solid #eee;">
+    <div style="font-size:11px;font-weight:bold;color:#333;letter-spacing:2px;">WORK — DISTRIBUTED SYSTEMS (3)</div>
+    <div style="font-size:14px;padding:6px 0;"><a href="#" style="color:#111;text-decoration:none;">▸ Debugging distributed systems: the case for causal tracing</a> <span style="color:#aaa;font-size:11px;">newsletter</span></div>
+  </td></tr>
+  <tr><td style="padding:10px 24px 4px;border-top:1px solid #eee;">
+    <div style="font-size:11px;font-weight:bold;color:#888;letter-spacing:2px;">OTHER (2)</div>
+    <div style="font-size:14px;padding:6px 0;"><a href="#" style="color:#111;text-decoration:none;">▸ Portland city council approves new housing measure</a> <span style="color:#aaa;font-size:11px;">KATU</span></div>
+  </td></tr>
+  <tr><td style="padding:12px 24px;font-size:11px;color:#999;border-top:1px solid #eee;margin-top:8px;">
+    Sent because schedule = daily 08:00 PT · Skipped: Guardian Books (fetch failed), 1 item (classify failed)
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</div>
+
+<script>
+function show(v) {
+  document.querySelectorAll('.variant').forEach(function (el) { el.style.display = 'none'; });
+  document.getElementById('v-' + v).style.display = 'block';
+}
+show('a');
+</script>
+</body>
+</html>

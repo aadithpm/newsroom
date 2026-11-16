@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.wrangler/
+*.log
+# terraform state is COMMITTED on purpose (no secrets in it) — do not add *.tfstate here
+.terraform/
+.terraform.lock.hcl

@@ -1,0 +1,124 @@
+terraform {
+  required_version = ">= 1.9"
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5.0"
+    }
+  }
+}
+
+variable "cloudflare_api_token" {
+  type      = string
+  sensitive = true
+}
+
+variable "account_id" {
+  type = string
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
+
+data "cloudflare_zone" "main" {
+  name = "aadithpm.xyz"
+}
+
+resource "cloudflare_d1_database" "newsroom" {
+  account_id = var.account_id
+  name       = "newsroom"
+}
+
+locals {
+  worker_bundle = "${path.module}/../dist/index.js"
+}
+
+resource "cloudflare_workers_script" "newsroom" {
+  account_id         = var.account_id
+  script_name        = "newsroom"
+  compatibility_date = "2026-11-15"
+  main_module        = "index.js"
+  content_file       = local.worker_bundle
+  content_sha256     = filesha256(local.worker_bundle)
+
+  bindings = [
+    {
+      type = "ai"
+      name = "AI"
+    },
+    {
+      type = "d1"
+      name = "DB"
+      id   = cloudflare_d1_database.newsroom.id
+    },
+    {
+      # shortcut: verify `remote` attr against provider schema at first apply (spec §12.1)
+      type   = "send_email"
+      name   = "EMAIL"
+      remote = true
+    },
+  ]
+}
+
+resource "cloudflare_workers_cron_trigger" "hourly" {
+  account_id  = var.account_id
+  script_name = cloudflare_workers_script.newsroom.script_name
+  schedules = [
+    {
+      cron = "0 * * * *"
+    },
+  ]
+}
+
+resource "cloudflare_workers_custom_domain" "panel" {
+  account_id = var.account_id
+  zone_id    = data.cloudflare_zone.main.id
+  hostname   = "digest.aadithpm.xyz"
+  service    = cloudflare_workers_script.newsroom.script_name
+}
+
+# shortcut: verify name semantics (root vs subdomain) at first apply (spec §12.2)
+resource "cloudflare_email_sending_subdomain" "main" {
+  zone_id = data.cloudflare_zone.main.id
+  name    = "aadithpm.xyz"
+}
+
+resource "cloudflare_zero_trust_access_identity_provider" "otp" {
+  account_id = var.account_id
+  name       = "newsroom-otp"
+  type       = "onetimepin"
+  config     = {}
+}
+
+resource "cloudflare_zero_trust_access_policy" "aadithpm_only" {
+  account_id = var.account_id
+  name       = "aadithpm-emails-only"
+  decision   = "allow"
+
+  include = [
+    {
+      email_domain = {
+        domain = "aadithpm.xyz"
+      }
+    },
+  ]
+}
+
+resource "cloudflare_zero_trust_access_application" "panel" {
+  account_id   = var.account_id
+  name         = "newsroom panel"
+  type         = "self_hosted"
+  domain       = "digest.aadithpm.xyz"
+  allowed_idps = [cloudflare_zero_trust_access_identity_provider.otp.id]
+
+  policies = [
+    {
+      id = cloudflare_zero_trust_access_policy.aadithpm_only.id
+    },
+  ]
+}
+
+output "d1_database_id" {
+  value = cloudflare_d1_database.newsroom.id
+}

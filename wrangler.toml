@@ -1,0 +1,19 @@
+# DEV + D1-MIGRATIONS ONLY — never `wrangler deploy` from this file (CI owns deploys via Terraform).
+name = "newsroom"
+main = "src/index.ts"
+compatibility_date = "2026-11-15"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "newsroom"
+database_id = "00000000-0000-0000-0000-000000000000"
+
+[[send_email]]
+name = "EMAIL"
+remote = true
+
+[triggers]
+crons = ["0 * * * *"]
