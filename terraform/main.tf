@@ -22,7 +22,9 @@ provider "cloudflare" {
 }
 
 data "cloudflare_zone" "main" {
-  name = "aadithpm.xyz"
+  filter = {
+    name = "aadithpm.xyz"
+  }
 }
 
 resource "cloudflare_d1_database" "newsroom" {
