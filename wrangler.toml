@@ -9,7 +9,7 @@ binding = "AI"
 [[d1_databases]]
 binding = "DB"
 database_name = "newsroom"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "3a707ed6-1eae-4933-a593-1fa4cd43f78d"
 
 [[send_email]]
 name = "EMAIL"
