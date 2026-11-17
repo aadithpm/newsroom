@@ -1,19 +1,3 @@
-# shortcut: one-shot recovery imports for resources created by the first partial CI apply (delete these blocks after the first green apply)
-import {
-  to = cloudflare_workers_script.newsroom
-  id = "8fda878e695582341e9736656cb947ad/newsroom"
-}
-
-import {
-  to = cloudflare_workers_cron_trigger.hourly
-  id = "8fda878e695582341e9736656cb947ad/newsroom"
-}
-
-import {
-  to = cloudflare_workers_custom_domain.panel
-  id = "8fda878e695582341e9736656cb947ad/f19d0cebb8c33785264a9604613b6a16e807fed1"
-}
-
 terraform {
   required_version = ">= 1.9"
   required_providers {
