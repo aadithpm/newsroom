@@ -1,10 +1,5 @@
 # shortcut: one-shot recovery imports for resources created by the first partial CI apply (delete these blocks after the first green apply)
 import {
-  to = cloudflare_d1_database.newsroom
-  id = "8fda878e695582341e9736656cb947ad/44c4996d-cf4e-43d8-bdfc-f0f9957f6bba"
-}
-
-import {
   to = cloudflare_workers_script.newsroom
   id = "8fda878e695582341e9736656cb947ad/newsroom"
 }

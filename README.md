@@ -10,7 +10,7 @@ One-time, manual: dashboard → Compute → Email Service → Email Sending → 
 
 CI (`.github/workflows/deploy.yml`) does everything else on push to main: build → `terraform apply` → D1 migrations → commit `terraform.tfstate`.
 
-```
+```sh
 npm install
 npm run dev
 npx wrangler d1 migrations apply newsroom --local
