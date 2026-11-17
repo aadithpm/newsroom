@@ -1,0 +1,54 @@
+D1: {
+  shape: cylinder
+}
+
+Feeds: {
+  style: {
+    multiple: true
+  }
+}
+
+Settings: {
+  style: {
+    multiple: true
+  }
+}
+
+Runs: {
+  style: {
+    multiple: true
+  }
+}
+
+Seen items (dedupe): {
+  style: {
+    multiple: true
+  }
+}
+
+D1 -> Feeds
+D1 -> Settings
+D1 -> Runs
+D1 -> Seen items (dedupe)
+
+Worker: {
+  Cron
+  Fetch RSS Feeds
+  Clef for categorization
+  LLama for summarization
+  Compile newsletter
+  HTML email template
+}
+Worker <-> D1
+
+Worker.Fetch RSS Feeds <- RSS Feed 1
+Worker.Fetch RSS Feeds <- RSS Feed 2
+Worker.Fetch RSS Feeds <- RSS Feed 3
+
+Worker.Cron -> Worker.Fetch RSS Feeds
+Worker.Fetch RSS Feeds -> Worker.Clef for categorization
+Worker.Fetch RSS Feeds -> Worker.LLama for summarization
+Worker.Clef for categorization -> Worker.Compile newsletter
+Worker.LLama for summarization -> Worker.Compile newsletter
+Worker.Compile newsletter -> Worker.HTML email template
+Worker.HTML email template -> Email Sending
