@@ -6,6 +6,10 @@ Daily RSS digest on a Cloudflare Worker with D1, behind Cloudflare Access. It co
 
 ## Dev
 
+One-time, manual: dashboard → Compute → Email Service → Email Sending → Onboard Domain → `aadithpm.xyz` (enables `digest@aadithpm.xyz` sending; not Terraform-automated).
+
+CI (`.github/workflows/deploy.yml`) does everything else on push to main: build → `terraform apply` → D1 migrations → commit `terraform.tfstate`.
+
 ```
 npm install
 npm run dev

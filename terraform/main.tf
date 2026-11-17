@@ -101,11 +101,8 @@ resource "cloudflare_workers_custom_domain" "panel" {
   service    = cloudflare_workers_script.newsroom.script_name
 }
 
-# shortcut: verify name semantics (root vs subdomain) at first apply (spec §12.2)
-resource "cloudflare_email_sending_subdomain" "main" {
-  zone_id = data.cloudflare_zone.main.id
-  name    = "aadithpm.xyz"
-}
+# Email sending onboarding is manual (dashboard: Compute > Email Service > Email Sending > Onboard Domain, once):
+# shortcut: the email_sending_subdomain API 401s for every token scope we tried (incl. wrangler OAuth email_sending write) — revisit if Cloudflare documents the required permission, manual onboarding until then
 
 # shortcut: no IdP resource — Cloudflare allows one OTP IdP per account and the built-in implicit one already exists (un-listable, un-creatable, code 12132); leaving allowed_idps unset lets Access use it
 resource "cloudflare_zero_trust_access_policy" "aadithpm_only" {
