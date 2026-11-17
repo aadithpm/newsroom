@@ -1,3 +1,24 @@
+# shortcut: one-shot recovery imports for resources created by the first partial CI apply (delete these blocks after the first green apply)
+import {
+  to = cloudflare_d1_database.newsroom
+  id = "8fda878e695582341e9736656cb947ad/44c4996d-cf4e-43d8-bdfc-f0f9957f6bba"
+}
+
+import {
+  to = cloudflare_workers_script.newsroom
+  id = "8fda878e695582341e9736656cb947ad/newsroom"
+}
+
+import {
+  to = cloudflare_workers_cron_trigger.hourly
+  id = "8fda878e695582341e9736656cb947ad/newsroom"
+}
+
+import {
+  to = cloudflare_workers_custom_domain.panel
+  id = "8fda878e695582341e9736656cb947ad/f19d0cebb8c33785264a9604613b6a16e807fed1"
+}
+
 terraform {
   required_version = ">= 1.9"
   required_providers {
@@ -86,13 +107,7 @@ resource "cloudflare_email_sending_subdomain" "main" {
   name    = "aadithpm.xyz"
 }
 
-resource "cloudflare_zero_trust_access_identity_provider" "otp" {
-  account_id = var.account_id
-  name       = "newsroom-otp"
-  type       = "onetimepin"
-  config     = {}
-}
-
+# shortcut: no IdP resource — Cloudflare allows one OTP IdP per account and the built-in implicit one already exists (un-listable, un-creatable, code 12132); leaving allowed_idps unset lets Access use it
 resource "cloudflare_zero_trust_access_policy" "aadithpm_only" {
   account_id = var.account_id
   name       = "aadithpm-emails-only"
@@ -108,11 +123,10 @@ resource "cloudflare_zero_trust_access_policy" "aadithpm_only" {
 }
 
 resource "cloudflare_zero_trust_access_application" "panel" {
-  account_id   = var.account_id
-  name         = "newsroom panel"
-  type         = "self_hosted"
-  domain       = "digest.aadithpm.xyz"
-  allowed_idps = [cloudflare_zero_trust_access_identity_provider.otp.id]
+  account_id = var.account_id
+  name       = "newsroom panel"
+  type       = "self_hosted"
+  domain     = "digest.aadithpm.xyz"
 
   policies = [
     {
