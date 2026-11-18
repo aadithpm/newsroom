@@ -62,6 +62,7 @@ export async function runDigest(env: Env, opts: { test: boolean; emptyBody: bool
   }
 
   let classifyFailed = 0;
+  let firstModelError = '';
   const decided = await Promise.all(candidates.map(async (c): Promise<DigestItem | null> => {
     try {
       const decision = await classify(env.AI, c.feedName, c.feedCategory, c.raw.title, c.raw.description);
@@ -70,8 +71,10 @@ export async function runDigest(env: Env, opts: { test: boolean; emptyBody: bool
         title: c.raw.title, link: c.raw.link, summary,
         source: c.feedName, category: decision.category, breaking: decision.breaking,
       };
-    } catch {
+    } catch (e) {
       classifyFailed++;
+      if (!firstModelError) firstModelError = String(e).slice(0, 300);
+      console.error('classify/summarize failed:', String(e), 'title:', c.raw.title);
       return null;
     }
   }));
@@ -79,7 +82,7 @@ export async function runDigest(env: Env, opts: { test: boolean; emptyBody: bool
 
   const skipParts: string[] = [];
   if (failedFeeds.length) skipParts.push(`${failedFeeds.join(', ')} (fetch failed)`);
-  if (classifyFailed) skipParts.push(`${classifyFailed} items (classify failed)`);
+  if (classifyFailed) skipParts.push(`${classifyFailed} items (classify failed${firstModelError ? `: ${firstModelError}` : ''})`);
   const skipped = skipParts.join(', ');
 
   const model = {
