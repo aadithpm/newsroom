@@ -16,8 +16,8 @@ export interface DigestModel {
   sentBecause: string;
 }
 
-const CAP_PER_CATEGORY = 20;
-const CAP_BREAKING = 10;
+const CAP_PER_CATEGORY = 10;
+const CAP_BREAKING = 5;
 
 interface Section { name: string; items: DigestItem[]; overflow: number }
 
