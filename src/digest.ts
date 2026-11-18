@@ -3,7 +3,7 @@ import { classify, summarize } from './ai';
 import { fetchFeed, type RawItem } from './feeds';
 import { renderHtml, renderSubject, renderText, type DigestItem } from './email';
 import { getSeenKeys, getSettings, listFeeds, markSeen, pruneSeen, recordRun, setSetting } from './db';
-import { ptParts } from './util';
+import { mapLimit, ptParts } from './util';
 
 export interface Env {
   AI: Ai;
@@ -63,7 +63,7 @@ export async function runDigest(env: Env, opts: { test: boolean; emptyBody: bool
 
   let classifyFailed = 0;
   let firstModelError = '';
-  const decided = await Promise.all(candidates.map(async (c): Promise<DigestItem | null> => {
+  const decided = await mapLimit(candidates, 4, async (c): Promise<DigestItem | null> => {
     try {
       const decision = await classify(env.AI, c.feedName, c.feedCategory, c.raw.title, c.raw.description);
       const summary = await summarize(env.AI, c.raw.title, c.raw.description);
@@ -77,7 +77,7 @@ export async function runDigest(env: Env, opts: { test: boolean; emptyBody: bool
       console.error('classify/summarize failed:', String(e), 'title:', c.raw.title);
       return null;
     }
-  }));
+  });
   const items = decided.filter((i): i is DigestItem => i !== null);
 
   const skipParts: string[] = [];
